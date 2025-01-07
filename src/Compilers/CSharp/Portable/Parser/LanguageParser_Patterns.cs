@@ -180,8 +180,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 case SyntaxKind.CloseBraceToken:
                 case SyntaxKind.CloseParenToken:
                 case SyntaxKind.CloseBracketToken:
-                case SyntaxKind.EqualsGreaterThanToken:
-                    return _syntaxFactory.ConstantPattern(this.ParseIdentifierName(ErrorCode.ERR_MissingPattern));
+                case SyntaxKind.EqualsGreaterThanToken: return _syntaxFactory.UnaryPattern(ConvertToKeyword(SyntaxFactory.MissingToken(SyntaxKind.NotKeyword)), _syntaxFactory.ConstantPattern(_syntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression, SyntaxFactory.MissingToken(SyntaxKind.NullKeyword))));
             }
 
             if (CurrentToken.ContextualKind == SyntaxKind.UnderscoreToken)
