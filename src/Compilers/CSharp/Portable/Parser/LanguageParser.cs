@@ -2057,9 +2057,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             // We are only called from ParseClassOrStructOrInterfaceDeclaration which unilaterally sets this.
             Debug.Assert((_termState & TerminatorState.IsEndOfRecordOrClassOrStructOrInterfaceSignature) != 0);
 
-            var colon = this.TryEatToken(SyntaxKind.ColonToken);
-            if (colon == null)
-                return null;
+            if (this.CurrentToken.Kind is not SyntaxKind.ColonToken and not SyntaxKind.BaseKeyword) return null!;
+            var colon = this.EatToken();
 
             var list = _pool.AllocateSeparated<BaseTypeSyntax>();
 
