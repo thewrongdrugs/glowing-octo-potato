@@ -252,7 +252,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
             _declModifiers = modifiers;
 
-            if ((_declModifiers & (DeclarationModifiers.Public | DeclarationModifiers.ProtectedInternal | DeclarationModifiers.PrivateProtected | DeclarationModifiers.Protected | DeclarationModifiers.Private)) == 0)
+            if ((_declModifiers & (DeclarationModifiers.Public | DeclarationModifiers.Internal | DeclarationModifiers.ProtectedInternal | DeclarationModifiers.PrivateProtected | DeclarationModifiers.Protected | DeclarationModifiers.Private)) == 0)
             {
                 _declModifiers |= DeclarationModifiers.Public;
             }
