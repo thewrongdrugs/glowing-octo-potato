@@ -443,7 +443,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 // into it.
                 if (currentMember is TypeDeclarationSyntax
                     {
-                        SemicolonToken: null,
+                        //SemicolonToken: null,
                         CloseBraceToken: { IsMissing: false, ContainsDiagnostics: false }
                     } currentTypeDeclaration)
                 {
