@@ -30981,6 +30981,7 @@ internal partial class ContextAwareSyntax
         }
         if (namespaceOrType == null) throw new ArgumentNullException(nameof(namespaceOrType));
         if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
+        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
 #endif
 
         return new UsingDirectiveSyntax(SyntaxKind.UsingDirective, globalKeyword, usingKeyword, staticKeyword, unsafeKeyword, alias, namespaceOrType, semicolonToken, this.context);
