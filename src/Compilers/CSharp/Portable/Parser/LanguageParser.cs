@@ -823,17 +823,29 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 // incomplete members must be processed before we add any nodes to the body:
                 ReduceIncompleteMembers(ref pendingIncompleteMembers, ref openBrace, ref body, ref initialBadNodes);
 
-                var @using = this.ParseUsingDirective();
-                if (seen > NamespaceParts.Usings)
+                var seenPastUsings = seen > NamespaceParts.Usings;
+                if (!seenPastUsings) seen = NamespaceParts.Usings;
+
+                var ignoreCommas = false; // (true)
+Completion:
+                var @using = this.TryParseUsingDirective(ignoreCommas);
+                if (seenPastUsings)
                 {
                     @using = this.AddError(@using, ErrorCode.ERR_UsingAfterElements);
                     this.AddSkippedNamespaceText(ref openBrace, ref body, ref initialBadNodes, @using);
                 }
-                else
+                else if (@using != null)
                 {
                     body.Usings.Add(@using);
-                    seen = NamespaceParts.Usings;
+
+                    if (this.CurrentToken.Kind is SyntaxKind.CommaToken)
+                    {
+                        ignoreCommas = true;
+                        goto Completion;
+                    }
                 }
+                else
+                    return;
             }
         }
 
@@ -947,20 +959,24 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 this.EatToken(SyntaxKind.EqualsToken));
         }
 
-        private UsingDirectiveSyntax ParseUsingDirective()
+        private UsingDirectiveSyntax? TryParseUsingDirective(bool ignoreCommas)
         {
             if (this.IsIncrementalAndFactoryContextMatches && this.CurrentNodeKind == SyntaxKind.UsingDirective)
             {
                 return (UsingDirectiveSyntax)this.EatNode();
             }
 
-            var globalToken = this.CurrentToken.ContextualKind == SyntaxKind.GlobalKeyword
-                ? ConvertToKeyword(this.EatToken())
-                : null;
-
-            Debug.Assert(this.CurrentToken.Kind == SyntaxKind.UsingKeyword);
-
-            var usingToken = this.EatToken(SyntaxKind.UsingKeyword);
+            SyntaxToken? globalToken = null;
+            SyntaxToken usingToken;
+            if (ignoreCommas)
+            {
+                usingToken = AddLeadingSkippedSyntax(SyntaxFactory.MissingToken(SyntaxKind.UsingKeyword), this.EatToken(SyntaxKind.CommaToken));
+            }
+            else
+            {
+                globalToken = this.CurrentToken.ContextualKind == SyntaxKind.GlobalKeyword ? ConvertToKeyword(this.EatToken()) : null;
+                usingToken = this.EatToken(SyntaxKind.UsingKeyword);
+            }
             var staticToken = this.TryEatToken(SyntaxKind.StaticKeyword);
             var unsafeToken = this.TryEatToken(SyntaxKind.UnsafeKeyword);
 
@@ -1011,7 +1027,18 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 if (type.IsMissing && this.PeekToken(1).Kind == SyntaxKind.SemicolonToken)
                     type = AddTrailingSkippedSyntax(type, this.EatToken());
 
-                semicolon = this.EatToken(SyntaxKind.SemicolonToken);
+                if (this.CurrentToken.Kind is SyntaxKind.SemicolonToken)
+                {
+                    semicolon = this.EatToken(SyntaxKind.CommaToken);
+                }
+                else if (this.CurrentToken.Kind is not SyntaxKind.CommaToken)
+                {
+                    semicolon = this.EatToken(SyntaxKind.CommaToken);
+                }
+                else
+                {
+                    semicolon = SyntaxFactory.MissingToken(SyntaxKind.SemicolonToken);
+                }
             }
 
             return _syntaxFactory.UsingDirective(globalToken, usingToken, staticToken, unsafeToken, alias, type, semicolon);
