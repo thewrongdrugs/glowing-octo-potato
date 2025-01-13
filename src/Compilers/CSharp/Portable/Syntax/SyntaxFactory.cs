@@ -1771,7 +1771,17 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="consumeFullText">True if extra tokens in the input following a declaration should be treated as an error</param>
         public static MemberDeclarationSyntax? ParseMemberDeclaration(string text, int offset = 0, ParseOptions? options = null, bool consumeFullText = true)
         {
-            return null;
+            using (var lexer = MakeLexer(text, offset, (CSharpParseOptions?)options))
+            using (var parser = MakeParser(lexer))
+            {
+                var node = parser.ParseMemberDeclaration();
+                if (node == null)
+                {
+                    return null;
+                }
+
+                return (MemberDeclarationSyntax)(consumeFullText ? parser.ConsumeUnexpectedTokens(node) : node).CreateRed();
+            }
         }
 
         /// <summary>

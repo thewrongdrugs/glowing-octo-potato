@@ -31638,6 +31638,7 @@ internal partial class ContextAwareSyntax
 #if DEBUG
         if (declaration == null) throw new ArgumentNullException(nameof(declaration));
         if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
+        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
 #endif
 
         return new FieldDeclarationSyntax(SyntaxKind.FieldDeclaration, attributeLists.Node, modifiers.Node, declaration, semicolonToken, this.context);
