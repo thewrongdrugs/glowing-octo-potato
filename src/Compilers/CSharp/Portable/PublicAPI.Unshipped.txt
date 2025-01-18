@@ -5,6 +5,7 @@ abstract Microsoft.CodeAnalysis.CSharp.InterceptableLocation.Data.get -> string!
 abstract Microsoft.CodeAnalysis.CSharp.InterceptableLocation.GetDisplayLocation() -> string!
 abstract Microsoft.CodeAnalysis.CSharp.InterceptableLocation.Version.get -> int
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.RazorContentToken = 8523 -> Microsoft.CodeAnalysis.CSharp.SyntaxKind
+Microsoft.CodeAnalysis.CSharp.SyntaxKind.ReefUnit = 8840 -> Microsoft.CodeAnalysis.CSharp.SyntaxKind
 override abstract Microsoft.CodeAnalysis.CSharp.InterceptableLocation.Equals(object? obj) -> bool
 override abstract Microsoft.CodeAnalysis.CSharp.InterceptableLocation.GetHashCode() -> int
 static Microsoft.CodeAnalysis.CSharp.CSharpExtensions.GetInterceptableLocation(this Microsoft.CodeAnalysis.SemanticModel? semanticModel, Microsoft.CodeAnalysis.CSharp.Syntax.InvocationExpressionSyntax! node, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Microsoft.CodeAnalysis.CSharp.InterceptableLocation?
