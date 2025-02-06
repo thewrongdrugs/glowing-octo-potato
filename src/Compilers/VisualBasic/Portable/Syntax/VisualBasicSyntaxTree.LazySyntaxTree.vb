@@ -175,6 +175,10 @@ Namespace Microsoft.CodeAnalysis.VisualBasic
                     Return New LazySyntaxTree(_text, _options, _path, options)
                 End If
             End Function
+
+            Public Overrides Function WithChangedText(newText As SourceText, Optional filePath As String = Nothing) As SyntaxTree
+                Throw New NotImplementedException()
+            End Function
         End Class
     End Class
 End Namespace

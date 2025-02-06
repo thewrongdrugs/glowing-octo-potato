@@ -15,7 +15,7 @@ internal abstract class AsyncLazy<T>
 {
     public abstract bool TryGetValue([MaybeNullWhen(false)] out T result);
     public abstract T GetValue(CancellationToken cancellationToken);
-    public abstract Task<T> GetValueAsync(CancellationToken cancellationToken);
+    public abstract Task<T> GetValueAsync(CancellationToken cancellationToken, String filePath = null);
 
     public static AsyncLazy<T> Create<TData>(
         Func<TData, CancellationToken, Task<T>> asynchronousComputeFunction,
@@ -322,7 +322,7 @@ internal abstract class AsyncLazy<T>
             return request;
         }
 
-        public override Task<T> GetValueAsync(CancellationToken cancellationToken)
+        public override Task<T> GetValueAsync(CancellationToken cancellationToken, String filePath = null)
         {
             // Optimization: if we're already cancelled, do not pass go
             if (cancellationToken.IsCancellationRequested)
@@ -365,7 +365,7 @@ internal abstract class AsyncLazy<T>
 
             if (newAsynchronousComputation != null)
             {
-                StartAsynchronousComputation(newAsynchronousComputation.Value, requestToCompleteSynchronously: request, callerCancellationToken: cancellationToken);
+                StartAsynchronousComputation(newAsynchronousComputation.Value, requestToCompleteSynchronously: request, callerCancellationToken: cancellationToken, filePath: filePath);
             }
 
             return request.Task;
@@ -391,7 +391,8 @@ internal abstract class AsyncLazy<T>
         private void StartAsynchronousComputation(
             AsynchronousComputationToStart computationToStart,
             Request? requestToCompleteSynchronously,
-            CancellationToken callerCancellationToken)
+            CancellationToken callerCancellationToken,
+            String filePath = null)
         {
             var cancellationToken = computationToStart.CancellationTokenSource.Token;
 

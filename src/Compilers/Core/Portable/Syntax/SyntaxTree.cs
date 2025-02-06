@@ -169,7 +169,16 @@ namespace Microsoft.CodeAnalysis
         /// parse will occur reusing most of the current syntax tree internal data.  Otherwise, a
         /// full parse will occur using the new source text.
         /// </summary>
-        public abstract SyntaxTree WithChangedText(SourceText newText);
+        public virtual SyntaxTree WithChangedText(SourceText newText, string filePath = null!) { return this; }
+
+        /// <summary>
+        /// Create a new syntax tree based off this tree using a new source text.
+        /// 
+        /// If the new source text is a minor change from the current source text an incremental
+        /// parse will occur reusing most of the current syntax tree internal data.  Otherwise, a
+        /// full parse will occur using the new source text.
+        /// </summary>
+        public virtual SyntaxTree WithChangedText(SourceText newText) { return this.WithChangedText(newText, null!); }
 
         /// <summary>
         /// Gets a list of all the diagnostics in the syntax tree.

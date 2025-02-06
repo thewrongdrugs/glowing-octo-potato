@@ -23,8 +23,8 @@ internal sealed class SimpleTreeAndVersionSource : ITreeAndVersionSource
         _source = source;
     }
 
-    public Task<TreeAndVersion> GetValueAsync(CancellationToken cancellationToken)
-        => _source.GetValueAsync(cancellationToken);
+    public Task<TreeAndVersion> GetValueAsync(CancellationToken cancellationToken, String filePath = null!)
+        => _source.GetValueAsync(cancellationToken, filePath);
 
     public TreeAndVersion GetValue(CancellationToken cancellationToken)
         => _source.GetValue(cancellationToken);

@@ -181,7 +181,8 @@ internal partial class DocumentState : TextDocumentState
     private static ITreeAndVersionSource CreateLazyIncrementallyParsedTree(
         ITreeAndVersionSource oldTreeSource,
         ITextAndVersionSource newTextSource,
-        LoadTextOptions loadTextOptions)
+        LoadTextOptions loadTextOptions,
+        String filePath = null)
     {
         return SimpleTreeAndVersionSource.Create(
             static (arg, c) => IncrementallyParseTreeAsync(arg.oldTreeSource, arg.newTextSource, arg.loadTextOptions, c),
@@ -242,7 +243,7 @@ internal partial class DocumentState : TextDocumentState
         var oldTree = oldTreeAndVersion.Tree;
 
         var oldText = oldTree.GetText(cancellationToken);
-        var newTree = oldTree.WithChangedText(newText);
+        var newTree = oldTree.WithChangedText(newText, oldTree.FilePath);
         Contract.ThrowIfNull(newTree);
         CheckTree(newTree, newText, oldTree, oldText);
 
@@ -643,7 +644,7 @@ internal partial class DocumentState : TextDocumentState
             return treeAndVersion.Version;
         }
 
-        treeAndVersion = await TreeSource.GetValueAsync(cancellationToken).ConfigureAwait(false);
+        treeAndVersion = await TreeSource.GetValueAsync(cancellationToken, this.FilePath!).ConfigureAwait(false);
         return treeAndVersion.Version;
     }
 

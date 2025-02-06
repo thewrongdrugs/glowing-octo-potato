@@ -542,10 +542,6 @@ Public Module VerificationHelpers
             End Get
         End Property
 
-        Public Overrides Function WithChangedText(newText As SourceText) As SyntaxTree
-            Throw New NotImplementedException()
-        End Function
-
         Public Overrides Function WithRootAndOptions(root As SyntaxNode, options As ParseOptions) As SyntaxTree
             Throw New NotImplementedException()
         End Function
@@ -555,6 +551,10 @@ Public Module VerificationHelpers
         End Function
 
         Public Overrides Function WithDiagnosticOptions(options As ImmutableDictionary(Of String, ReportDiagnostic)) As SyntaxTree
+            Throw New NotImplementedException()
+        End Function
+
+        Public Overrides Function WithChangedText(newText As SourceText, Optional filePath As String = Nothing) As SyntaxTree
             Throw New NotImplementedException()
         End Function
     End Class

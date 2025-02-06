@@ -8,8 +8,6 @@ using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -503,7 +501,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             options = options ?? CSharpParseOptions.Default;
 
             using var lexer = new InternalSyntax.Lexer(text, options);
-            using var parser = new InternalSyntax.LanguageParser(lexer, oldTree: null, changes: null, cancellationToken: cancellationToken);
+            using var parser = new InternalSyntax.LanguageParser(lexer, oldTree: null, changes: null, path: path, cancellationToken: cancellationToken);
             var compilationUnit = (CompilationUnitSyntax)parser.ParseCompilationUnit().CreateRed();
             var tree = new ParsedSyntaxTree(
                 text,
@@ -531,7 +529,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// reusing most of the current syntax tree internal data.  Otherwise, a full parse will occur using the new
         /// source text.
         /// </remarks>
-        public override SyntaxTree WithChangedText(SourceText newText)
+        public override SyntaxTree WithChangedText(SourceText newText, String path = null)
         {
             // try to find the changes between the old text and the new text.
             if (this.TryGetText(out SourceText? oldText))
@@ -543,14 +541,14 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return this;
                 }
 
-                return this.WithChanges(newText, changes);
+                return this.WithChanges(newText, changes, path);
             }
 
             // if we do not easily know the old text, then specify entire text as changed so we do a full reparse.
-            return this.WithChanges(newText, new[] { new TextChangeRange(new TextSpan(0, this.Length), newText.Length) });
+            return this.WithChanges(newText, new[] { new TextChangeRange(new TextSpan(0, this.Length), newText.Length) }, path);
         }
 
-        private SyntaxTree WithChanges(SourceText newText, IReadOnlyList<TextChangeRange> changes)
+        private SyntaxTree WithChanges(SourceText newText, IReadOnlyList<TextChangeRange> changes, string path)
         {
             if (changes == null)
             {
@@ -569,7 +567,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
 
             using var lexer = new InternalSyntax.Lexer(newText, this.Options);
-            using var parser = new InternalSyntax.LanguageParser(lexer, oldTree?.GetRoot(), workingChanges);
+            using var parser = new InternalSyntax.LanguageParser(lexer, oldTree?.GetRoot(), workingChanges, path: path);
 
             var compilationUnit = (CompilationUnitSyntax)parser.ParseCompilationUnit().CreateRed();
             var tree = new ParsedSyntaxTree(

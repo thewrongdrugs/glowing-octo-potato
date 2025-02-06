@@ -31187,33 +31187,6 @@ internal partial class ContextAwareSyntax
         if (keyword.Kind != SyntaxKind.ClassKeyword) throw new ArgumentException(nameof(keyword));
         if (identifier == null) throw new ArgumentNullException(nameof(identifier));
         if (identifier.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(identifier));
-        if (openBraceToken != null)
-        {
-            switch (openBraceToken.Kind)
-            {
-                case SyntaxKind.OpenBraceToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(openBraceToken));
-            }
-        }
-        if (closeBraceToken != null)
-        {
-            switch (closeBraceToken.Kind)
-            {
-                case SyntaxKind.CloseBraceToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(closeBraceToken));
-            }
-        }
-        if (semicolonToken != null)
-        {
-            switch (semicolonToken.Kind)
-            {
-                case SyntaxKind.SemicolonToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(semicolonToken));
-            }
-        }
 #endif
 
         return new ClassDeclarationSyntax(SyntaxKind.ClassDeclaration, attributeLists.Node, modifiers.Node, keyword, identifier, typeParameterList, parameterList, baseList, constraintClauses.Node, openBraceToken, members.Node, closeBraceToken, semicolonToken, this.context);
@@ -31226,33 +31199,6 @@ internal partial class ContextAwareSyntax
         if (keyword.Kind != SyntaxKind.StructKeyword) throw new ArgumentException(nameof(keyword));
         if (identifier == null) throw new ArgumentNullException(nameof(identifier));
         if (identifier.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(identifier));
-        if (openBraceToken != null)
-        {
-            switch (openBraceToken.Kind)
-            {
-                case SyntaxKind.OpenBraceToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(openBraceToken));
-            }
-        }
-        if (closeBraceToken != null)
-        {
-            switch (closeBraceToken.Kind)
-            {
-                case SyntaxKind.CloseBraceToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(closeBraceToken));
-            }
-        }
-        if (semicolonToken != null)
-        {
-            switch (semicolonToken.Kind)
-            {
-                case SyntaxKind.SemicolonToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(semicolonToken));
-            }
-        }
 #endif
 
         return new StructDeclarationSyntax(SyntaxKind.StructDeclaration, attributeLists.Node, modifiers.Node, keyword, identifier, typeParameterList, parameterList, baseList, constraintClauses.Node, openBraceToken, members.Node, closeBraceToken, semicolonToken, this.context);
@@ -31265,33 +31211,6 @@ internal partial class ContextAwareSyntax
         if (keyword.Kind != SyntaxKind.InterfaceKeyword) throw new ArgumentException(nameof(keyword));
         if (identifier == null) throw new ArgumentNullException(nameof(identifier));
         if (identifier.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(identifier));
-        if (openBraceToken != null)
-        {
-            switch (openBraceToken.Kind)
-            {
-                case SyntaxKind.OpenBraceToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(openBraceToken));
-            }
-        }
-        if (closeBraceToken != null)
-        {
-            switch (closeBraceToken.Kind)
-            {
-                case SyntaxKind.CloseBraceToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(closeBraceToken));
-            }
-        }
-        if (semicolonToken != null)
-        {
-            switch (semicolonToken.Kind)
-            {
-                case SyntaxKind.SemicolonToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(semicolonToken));
-            }
-        }
 #endif
 
         return new InterfaceDeclarationSyntax(SyntaxKind.InterfaceDeclaration, attributeLists.Node, modifiers.Node, keyword, identifier, typeParameterList, parameterList, baseList, constraintClauses.Node, openBraceToken, members.Node, closeBraceToken, semicolonToken, this.context);
@@ -31319,33 +31238,6 @@ internal partial class ContextAwareSyntax
         }
         if (identifier == null) throw new ArgumentNullException(nameof(identifier));
         if (identifier.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(identifier));
-        if (openBraceToken != null)
-        {
-            switch (openBraceToken.Kind)
-            {
-                case SyntaxKind.OpenBraceToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(openBraceToken));
-            }
-        }
-        if (closeBraceToken != null)
-        {
-            switch (closeBraceToken.Kind)
-            {
-                case SyntaxKind.CloseBraceToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(closeBraceToken));
-            }
-        }
-        if (semicolonToken != null)
-        {
-            switch (semicolonToken.Kind)
-            {
-                case SyntaxKind.SemicolonToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(semicolonToken));
-            }
-        }
 #endif
 
         return new RecordDeclarationSyntax(kind, attributeLists.Node, modifiers.Node, keyword, classOrStructKeyword, identifier, typeParameterList, parameterList, baseList, constraintClauses.Node, openBraceToken, members.Node, closeBraceToken, semicolonToken, this.context);
@@ -31358,33 +31250,6 @@ internal partial class ContextAwareSyntax
         if (enumKeyword.Kind != SyntaxKind.EnumKeyword) throw new ArgumentException(nameof(enumKeyword));
         if (identifier == null) throw new ArgumentNullException(nameof(identifier));
         if (identifier.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(identifier));
-        if (openBraceToken != null)
-        {
-            switch (openBraceToken.Kind)
-            {
-                case SyntaxKind.OpenBraceToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(openBraceToken));
-            }
-        }
-        if (closeBraceToken != null)
-        {
-            switch (closeBraceToken.Kind)
-            {
-                case SyntaxKind.CloseBraceToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(closeBraceToken));
-            }
-        }
-        if (semicolonToken != null)
-        {
-            switch (semicolonToken.Kind)
-            {
-                case SyntaxKind.SemicolonToken:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(semicolonToken));
-            }
-        }
 #endif
 
         return new EnumDeclarationSyntax(SyntaxKind.EnumDeclaration, attributeLists.Node, modifiers.Node, enumKeyword, identifier, baseList, openBraceToken, members.Node, closeBraceToken, semicolonToken, this.context);

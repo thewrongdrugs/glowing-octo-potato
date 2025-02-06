@@ -998,9 +998,9 @@ namespace N1
                 return new Reference(this, _underlyingTree.GetReference(node));
             }
 
-            public override SyntaxTree WithChangedText(SourceText newText)
+            public override SyntaxTree WithChangedText(SourceText newText, string filePath = null)
             {
-                return _underlyingTree.WithChangedText(newText);
+                return _underlyingTree.WithChangedText(newText, filePath);
             }
 
             public override SyntaxTree WithRootAndOptions(SyntaxNode root, ParseOptions options)

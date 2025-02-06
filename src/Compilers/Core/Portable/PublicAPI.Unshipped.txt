@@ -20,6 +20,8 @@ Microsoft.CodeAnalysis.RuntimeCapability.ByRefLikeGenerics = 8 -> Microsoft.Code
 static Microsoft.CodeAnalysis.GeneratorExtensions.AsIncrementalGenerator(this Microsoft.CodeAnalysis.ISourceGenerator! sourceGenerator) -> Microsoft.CodeAnalysis.IIncrementalGenerator!
 static Microsoft.CodeAnalysis.GeneratorExtensions.GetGeneratorType(this Microsoft.CodeAnalysis.IIncrementalGenerator! generator) -> System.Type!
 Microsoft.CodeAnalysis.Compilation.CreatePreprocessingSymbol(string! name) -> Microsoft.CodeAnalysis.IPreprocessingSymbol!
+virtual Microsoft.CodeAnalysis.SyntaxTree.WithChangedText(Microsoft.CodeAnalysis.Text.SourceText! newText) -> Microsoft.CodeAnalysis.SyntaxTree!
+virtual Microsoft.CodeAnalysis.SyntaxTree.WithChangedText(Microsoft.CodeAnalysis.Text.SourceText! newText, string! filePath = null) -> Microsoft.CodeAnalysis.SyntaxTree!
 [RSEXPERIMENTAL004]Microsoft.CodeAnalysis.HostOutputProductionContext
 [RSEXPERIMENTAL004]Microsoft.CodeAnalysis.HostOutputProductionContext.AddOutput(string! name, object! value) -> void
 [RSEXPERIMENTAL004]Microsoft.CodeAnalysis.HostOutputProductionContext.CancellationToken.get -> System.Threading.CancellationToken

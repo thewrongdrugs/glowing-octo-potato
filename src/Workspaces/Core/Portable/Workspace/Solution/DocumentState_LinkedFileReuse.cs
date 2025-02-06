@@ -42,8 +42,8 @@ internal partial class DocumentState
         public ITreeAndVersionSource GetNonChainedTreeAndVersionSource()
             => TryGetValue(out _) ? this : _originalTreeSource;
 
-        public Task<TreeAndVersion> GetValueAsync(CancellationToken cancellationToken)
-            => lazyComputation.GetValueAsync(cancellationToken);
+        public Task<TreeAndVersion> GetValueAsync(CancellationToken cancellationToken, string filePath = null!)
+            => lazyComputation.GetValueAsync(cancellationToken, filePath);
 
         public TreeAndVersion GetValue(CancellationToken cancellationToken)
             => lazyComputation.GetValue(cancellationToken);

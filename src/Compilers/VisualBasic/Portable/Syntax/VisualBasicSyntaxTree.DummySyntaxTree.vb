@@ -68,10 +68,6 @@ Namespace Microsoft.CodeAnalysis.VisualBasic
                 Return New SimpleSyntaxReference(Me, node)
             End Function
 
-            Public Overrides Function WithChangedText(newText As SourceText) As SyntaxTree
-                Throw New InvalidOperationException()
-            End Function
-
             Public Overrides Function GetRoot(Optional cancellationToken As CancellationToken = Nothing) As VisualBasicSyntaxNode
                 Return _node
             End Function
@@ -97,6 +93,10 @@ Namespace Microsoft.CodeAnalysis.VisualBasic
 
             Public Overrides Function WithDiagnosticOptions(options As ImmutableDictionary(Of String, ReportDiagnostic)) As SyntaxTree
                 Throw ExceptionUtilities.Unreachable
+            End Function
+
+            Public Overrides Function WithChangedText(newText As SourceText, Optional filePath As String = Nothing) As SyntaxTree
+                Throw New NotImplementedException()
             End Function
         End Class
     End Class

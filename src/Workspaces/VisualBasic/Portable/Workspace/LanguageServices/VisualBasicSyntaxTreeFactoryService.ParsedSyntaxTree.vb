@@ -94,6 +94,10 @@ Namespace Microsoft.CodeAnalysis.VisualBasic
             Public Overrides Function GetReference(node As SyntaxNode) As SyntaxReference
                 Return New NodeSyntaxReference(node)
             End Function
+
+            Public Overrides Function WithChangedText(newText As SourceText, Optional filePath As String = Nothing) As SyntaxTree
+                Throw New NotImplementedException()
+            End Function
         End Class
     End Class
 End Namespace

@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis;
 /// </summary>
 internal interface ITreeAndVersionSource
 {
-    Task<TreeAndVersion> GetValueAsync(CancellationToken cancellationToken);
+    Task<TreeAndVersion> GetValueAsync(CancellationToken cancellationToken, string filePath = null!);
     TreeAndVersion GetValue(CancellationToken cancellationToken);
     bool TryGetValue([NotNullWhen(true)] out TreeAndVersion? value);
 }

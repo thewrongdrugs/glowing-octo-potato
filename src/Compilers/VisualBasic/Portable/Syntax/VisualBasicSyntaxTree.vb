@@ -90,25 +90,6 @@ Namespace Microsoft.CodeAnalysis.VisualBasic
         End Property
 
         ''' <summary>
-        ''' Creates a new syntax based off this tree using a new source text.
-        ''' </summary>
-        ''' <remarks>
-        ''' If the new source text is a minor change from the current source text an incremental parse will occur
-        ''' reusing most of the current syntax tree internal data.  Otherwise, a full parse will occur using the new
-        ''' source text.
-        ''' </remarks>
-        Public Overrides Function WithChangedText(newText As SourceText) As SyntaxTree
-            ' try to find the changes between the old text and the new text.
-            Dim oldText As SourceText = Nothing
-            If Me.TryGetText(oldText) Then
-                Return Me.WithChanges(newText, newText.GetChangeRanges(oldText).ToArray())
-            End If
-
-            ' if we do not easily know the old text, then specify entire text as changed so we do a full reparse.
-            Return Me.WithChanges(newText, {New TextChangeRange(New TextSpan(0, Me.Length), newText.Length)})
-        End Function
-
-        ''' <summary>
         ''' Applies a text change to this syntax tree, returning a new syntax tree with the changes applied to it.
         ''' </summary>
         Private Function WithChanges(newText As SourceText, changes As TextChangeRange()) As SyntaxTree
